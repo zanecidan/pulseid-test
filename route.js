@@ -61,7 +61,11 @@ var appRouter = function (app) {
     });
 
     app.post("/genToken", function(req, res) {
-        var token = uuidv4();
+        // Generate 6-12 alphanumeric tokens
+        var token = uuidv4(); // Get a UUID
+        var tokenLength = 6 + Math.ceil((Math.random() * 6)); // Random a length between 6 to 12
+        token = token.substring(token.length-tokenLength,token.length); // Cut the UUID according to token length
+
         var tokenDT = new Date();
         inviteToken.push({token:token, tokenDT:tokenDT})
         res.status(200).send({
